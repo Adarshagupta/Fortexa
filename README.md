@@ -1,123 +1,113 @@
-# Fortexa
-A Distributed, Fault-Tolerant, Event-Driven Transaction Processing System
+# Fortexa Merchant Dashboard
 
-## Overview
+A modern React-based dashboard for the Fortexa payment processing platform. This application provides merchants with a comprehensive interface to manage payments, settlements, and account settings.
 
-Fortexa is a scalable payment processing system designed for modern fintech applications. This MVP implements the core components of a distributed payment infrastructure including:
+## Features
 
-- Multi-payment method support (Credit Cards, UPI, Bank Transfers)
-- Event-driven architecture using Kafka
-- Real-time transaction processing
-- Basic fraud detection
-- Settlement processing
-- Merchant dashboard
-
-## System Architecture
-
-```
-        +--------------------+
-        |  Merchant Dashboard|
-        +---------+----------+
-                  |
-                  v
-        +--------------------+
-        |  API Gateway       |
-        +--------------------+
-                  |
-        +------------------------------+
-        |  Payment Processing Engine    |
-        |  (Go Microservices)           |
-        +------------------------------+
-                  |
-        +------------------------------+
-        |  Message Queue (Kafka)        |
-        +------------------------------+
-                  |
-  +-----------------------+------------------+-----------------+
-  | Settlement Engine     | Fraud Detection  | Logging & Audit |
-  |-----------------------|------------------|-----------------|
-  | Handles fund flows    | Basic fraud      | Stores events   |
-  | & reconciliations     | detection        | for compliance  |
-  +----------------------------------------------------------+
-```
+- **Secure Authentication**: User login with JWT-based authentication
+- **Dashboard Overview**: Real-time metrics and charts showing payment activity
+- **Payment Management**: View, filter, and manage payment transactions
+- **Settlement Tracking**: Monitor settlement status and financial reconciliation
+- **Responsive Design**: Fully responsive UI that works on desktop and mobile devices
+- **Data Visualization**: Interactive charts for better data understanding
 
 ## Tech Stack
 
-- **API Gateway**: Go with Gin framework
-- **Backend Services**: Go microservices 
-- **Message Queue**: Apache Kafka
-- **Database**: PostgreSQL
-- **Merchant Dashboard**: React
-- **Containerization**: Docker & Docker Compose
+- **Frontend**: React, TypeScript, Material-UI
+- **State Management**: React Hooks (Context API)
+- **Routing**: React Router v6
+- **Styling**: Material-UI with custom theming
+- **Charts**: Recharts
+- **HTTP Client**: Axios
 
 ## Project Structure
 
 ```
-fortexa/
-├── api-gateway/          # API Gateway service
-├── payment-engine/       # Core payment processing service
-├── settlement-engine/    # Handles settlements and reconciliation
-├── fraud-detection/      # Basic fraud detection service
-├── merchant-dashboard/   # React-based merchant UI
-└── infrastructure/       # Infrastructure components
-    ├── db/               # Database migrations and schemas
-    └── kafka/            # Kafka configuration
+src/
+├── components/         # Reusable UI components
+│   ├── Layout/         # App layout components (Header, Sidebar, etc.)
+│   └── common/         # Common UI elements
+├── pages/              # Top-level page components
+│   ├── Dashboard/      # Dashboard page
+│   ├── Payments/       # Payments management page
+│   ├── Settlements/    # Settlements management page
+│   └── Login/          # Authentication page
+├── services/           # API services
+├── types/              # TypeScript interfaces and types
+├── theme/              # Material-UI theme configuration
+├── utils/              # Utility functions
+└── App.tsx             # Main application component
 ```
 
 ## Getting Started
 
 ### Prerequisites
 
-- Docker and Docker Compose
-- Go 1.20+
-- Node.js 18+
+- Node.js (v16 or later)
+- npm or yarn
 
-### Setup & Installation
+### Installation
 
-1. Clone the repository:
-   ```
-   git clone https://github.com/yourusername/fortexa.git
-   cd fortexa
-   ```
+1. Clone the repository
+```bash
+git clone https://github.com/yourusername/fortexa-merchant-dashboard.git
+cd fortexa-merchant-dashboard
+```
 
-2. Start the infrastructure services:
-   ```
-   docker-compose up -d
-   ```
+2. Install dependencies
+```bash
+npm install
+# or
+yarn install
+```
 
-3. Start the backend services:
-   ```
-   cd api-gateway && go run main.go
-   ```
-   (Repeat for other services)
+3. Start the development server
+```bash
+npm start
+# or
+yarn start
+```
 
-4. Start the merchant dashboard:
-   ```
-   cd merchant-dashboard
-   npm install
-   npm start
-   ```
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-## API Endpoints
+### Demo Credentials
 
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/api/v1/payments/initiate` | POST | Create a new payment |
-| `/api/v1/payments/:id` | GET | Get payment status |
-| `/api/v1/refunds` | POST | Issue a refund |
-| `/api/v1/merchants/onboard` | POST | Onboard a new merchant |
-| `/api/v1/webhooks/register` | POST | Register merchant webhook |
+For testing purposes, you can use the following credentials:
+- Email: `demo@fortexa.com`
+- Password: `password123`
 
-## MVP Features
+## API Integration
 
-- [x] Payment initiation and processing
-- [x] Basic fraud checks
-- [x] Transaction state management
-- [x] Merchant onboarding
-- [x] Settlement processing
-- [x] Transaction history and reporting
-- [x] Webhook notifications
+The dashboard connects to the Fortexa Payment API. In development mode, it uses mock data for demonstration purposes. In production, it will connect to the actual API endpoints.
+
+### Environment Variables
+
+Create a `.env` file in the root directory with the following variables:
+
+```
+REACT_APP_API_URL=https://api.fortexa.example.com
+```
+
+## Deployment
+
+To build the application for production:
+
+```bash
+npm run build
+# or
+yarn build
+```
+
+This will create a `build` folder with optimized production build.
+
+## Development Guidelines
+
+- Follow the established component structure
+- Add proper TypeScript types for all components and functions
+- Use Material-UI components and theme variables for consistent styling
+- Write unit tests for critical functionality
+- Document complex logic with comments
 
 ## License
 
-MIT
+This project is licensed under the MIT License - see the LICENSE file for details.
